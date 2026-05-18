@@ -1,0 +1,11 @@
+<iframe
+  *ngIf="safeUrl"
+  [src]="safeUrl"
+  [style.height.px]="height"
+  [class.compact]="compact"
+  frameborder="0"
+  allowfullscreen=""
+  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+  loading="lazy"
+  [title]="title"
+></iframe>

@@ -1,0 +1,19 @@
+<header class="site-header">
+  <a routerLink="/" class="brand">
+    <span class="brand-name">{{ site.name }}</span>
+  </a>
+
+  <nav class="nav" aria-label="Main">
+    <a
+      *ngFor="let link of navLinks"
+      [routerLink]="link.path"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+    >
+      {{ link.label }}
+    </a>
+    <a class="nav-external" [href]="site.spotifyProfileUrl" target="_blank" rel="noopener noreferrer">
+      Spotify
+    </a>
+  </nav>
+</header>

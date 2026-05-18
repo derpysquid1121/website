@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+iframe {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  background: #121212;
+}
+
+iframe.compact {
+  max-width: 100%;
+}

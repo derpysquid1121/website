@@ -1,0 +1,33 @@
+.site-footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.site-footer a {
+  color: var(--accent);
+}
+
+.copyright-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.ai-credit {
+  margin-left: auto;
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .ai-credit {
+    margin-left: 0;
+    text-align: left;
+    width: 100%;
+  }
+}

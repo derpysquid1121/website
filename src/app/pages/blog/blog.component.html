@@ -1,0 +1,33 @@
+<section class="hero">
+  <div class="hero-tagline-wrap">
+    <h1 class="hero-tagline">{{ site.tagline }}</h1>
+  </div>
+
+  <app-featured-carousel [slides]="carousel"></app-featured-carousel>
+</section>
+
+<section class="entries" aria-label="Music picks">
+  <article
+    *ngFor="let entry of entries"
+    class="entry"
+    [class.entry--compact]="!hasDescription(entry)"
+    [class.entry--detailed]="hasDescription(entry)"
+  >
+    <div class="entry-player">
+      <app-spotify-embed
+        [kind]="entry.kind"
+        [spotifyId]="entry.spotifyId"
+        [title]="entry.title"
+        [compact]="true"
+      ></app-spotify-embed>
+    </div>
+    <div class="entry-copy" *ngIf="hasDescription(entry)">
+      <h2 *ngIf="entry.subtitle">
+        <span class="entry-title">{{ entry.title }}</span>
+        <span class="entry-subtitle">by {{ entry.subtitle }}</span>
+      </h2>
+      <h2 *ngIf="!entry.subtitle && entry.title" class="entry-title-only">{{ entry.title }}</h2>
+      <p *ngIf="entry.body" class="entry-body">{{ entry.body }}</p>
+    </div>
+  </article>
+</section>
