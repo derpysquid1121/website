@@ -15,13 +15,8 @@ export class FeaturedCarouselComponent {
 
   activeIndex = 0;
 
-  get activeSlide(): MusicEntry {
-    return this.slides[this.activeIndex];
-  }
-
   prev(): void {
-    this.activeIndex =
-      (this.activeIndex - 1 + this.slides.length) % this.slides.length;
+    this.activeIndex = (this.activeIndex - 1 + this.slides.length) % this.slides.length;
   }
 
   next(): void {
@@ -32,7 +27,29 @@ export class FeaturedCarouselComponent {
     this.activeIndex = index;
   }
 
-  embedHeight(slide: MusicEntry): number {
-    return slide.kind === 'album' ? 480 : 430;
+  onSlideClick(i: number): void {
+    if (i !== this.activeIndex) this.goTo(i);
+  }
+
+  getOffset(i: number): number {
+    const n = this.slides.length;
+    let d = i - this.activeIndex;
+    if (d > Math.floor(n / 2)) d -= n;
+    if (d < -Math.floor(n / 2)) d += n;
+    return d;
+  }
+
+  getPositionClass(i: number): string {
+    const d = this.getOffset(i);
+    if (d === 0)  return 'carousel-slide pos-center';
+    if (d === 1)  return 'carousel-slide pos-right-1';
+    if (d === -1) return 'carousel-slide pos-left-1';
+    if (d === 2)  return 'carousel-slide pos-right-2';
+    if (d === -2) return 'carousel-slide pos-left-2';
+    return 'carousel-slide pos-hidden';
+  }
+
+  embedHeight(): number {
+    return 480;
   }
 }

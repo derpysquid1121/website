@@ -1,6 +1,9 @@
 <header class="site-header">
   <a routerLink="/" class="brand">
-    <span class="brand-name">{{ site.name }}</span>
+    <!-- <span class="brand-name">{{ site.name }}</span> -->
+    <div class="hero-tagline-wrap">
+      <h1 class="hero-tagline">{{ tagline$ | async }}</h1>
+    </div>
   </a>
 
   <nav class="nav" aria-label="Main">

@@ -64,8 +64,6 @@ export const musicEntries: MusicEntry[] = [
     subtitle: 'Triathalon',
     body: `What to say about this album? How about, I love it.
 
-It has deep roots in my life from high school. My good friend and I were obsessed with a certain female indie artist. She did a Q&A video in which she answered the question "What is your favorite album?" and she answered that this was her current favorite. Since she liked it, we liked it.
-
-But much later my good homie, mentioned before, and I were at a hotel. We had stayed up until 6am hanging out and then woke up to our 8am alarm to go get continental breakfast and go back to sleep. We fell back asleep to bright morning sun and this album.`,
+It has deep roots in my life from high school. My good friend and I were obsessed with a certain female indie artist. She did a Q&A video in which she answered the question "What is your favorite album?" and she answered that this was her current favorite. Since she liked it, we liked it.`,
   },
 ];

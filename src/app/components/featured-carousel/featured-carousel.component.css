@@ -1,118 +1,161 @@
 .carousel {
+  position: relative;
   width: 100%;
   margin-bottom: 0.5rem;
-  padding: 1.5rem;
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  background: var(--surface);
+  padding: 1.5rem 1.5rem 1rem;
   box-sizing: border-box;
 }
+
+/* ── 3D stage ─────────────────────────────── */
 
 .carousel-viewport {
   position: relative;
   width: 100%;
-  min-height: 520px;
+  height: 510px;
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+  overflow: visible;
 }
+
+/* ── Individual floating cards ────────────── */
 
 .carousel-slide {
-  display: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(500px, 88%);
+  border-radius: 14px;
+  will-change: transform, opacity;
+  transition:
+    transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.6s ease;
+  pointer-events: none;
+  opacity: 0;
 }
 
-.carousel-slide.active {
-  display: block;
-  animation: carousel-fade 0.25s ease;
-}
-
-@keyframes carousel-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.carousel-heading {
-  margin: 0 0 0.35rem;
-  font-size: 1.15rem;
-}
-
-.carousel-title {
-  display: block;
-  font-size: 1.25rem;
-}
-
-.carousel-subtitle {
-  display: block;
-  margin-top: 0.15rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--muted);
-}
-
-.carousel-title-only {
-  font-size: 1.25rem;
-}
-
-.carousel-note {
-  margin: 0 0 0.75rem;
-  font-size: 0.95rem;
-  color: var(--muted);
-}
-
-.carousel-player {
+/* Float wrapper — keeps drop-shadow separate from 3D position transform */
+.slide-inner {
   width: 100%;
+  border-radius: inherit;
+  filter: drop-shadow(0 28px 50px rgba(0, 0, 0, 0.65));
 }
+
+/* ── Position classes ─────────────────────── */
+
+.pos-center {
+  transform: translateX(-50%) translateZ(0) rotateY(0deg);
+  opacity: 1;
+  z-index: 5;
+  pointer-events: auto;
+}
+
+.pos-left-1 {
+  transform: translateX(-90%) translateZ(-90px) rotateY(26deg) scale(0.84);
+  opacity: 0.72;
+  z-index: 4;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.pos-right-1 {
+  transform: translateX(-10%) translateZ(-90px) rotateY(-26deg) scale(0.84);
+  opacity: 0.72;
+  z-index: 4;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.pos-left-2 {
+  transform: translateX(-120%) translateZ(-220px) rotateY(44deg) scale(0.64);
+  opacity: 0.38;
+  z-index: 3;
+}
+
+.pos-right-2 {
+  transform: translateX(20%) translateZ(-220px) rotateY(-44deg) scale(0.64);
+  opacity: 0.38;
+  z-index: 3;
+}
+
+.pos-hidden {
+  transform: translateX(-50%) translateZ(-350px) scale(0.35);
+  opacity: 0;
+  pointer-events: none;
+}
+
+
+/* ── Iridescent border on each slide ─────── */
+
+.carousel-slide::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    100deg,
+    #ff8ec8 0%,
+    #c98bff 22%,
+    #7ec8ff 44%,
+    #5dffa8 66%,
+    #ffe08a 88%,
+    #ff8ec8 100%
+  );
+  background-size: 220% auto;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: iridescent-border 7s ease-in-out infinite;
+}
+
+/* Stagger the shimmer phase per position */
+.pos-left-2::after  { animation-delay: -5.6s; }
+.pos-left-1::after  { animation-delay: -2.8s; }
+.pos-center::after  { animation-delay: 0s;    }
+.pos-right-1::after { animation-delay: -4.2s; }
+.pos-right-2::after { animation-delay: -1.4s; }
+
+/* ── Controls ─────────────────────────────── */
 
 .carousel-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  width: 100%;
-  margin-top: 0.5rem;
+  justify-content: space-between;
+  pointer-events: none;
 }
 
 .carousel-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 2rem;
+  height: 2rem;
   padding: 0;
-  border: none;
-  border-radius: 4px;
-  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  background: rgba(14, 14, 20, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   color: var(--muted);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   line-height: 1;
   cursor: pointer;
-  transition: color 0.15s ease, background 0.15s ease;
+  pointer-events: auto;
+  transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
 }
 
 .carousel-btn:hover {
   color: var(--text);
-  background: rgba(255, 255, 255, 0.06);
-}
-
-.carousel-dots {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-}
-
-.carousel-dot {
-  width: 0.35rem;
-  height: 0.35rem;
-  padding: 0;
-  border: none;
-  border-radius: 50%;
-  background: var(--border);
-  cursor: pointer;
-  transition: background 0.15s ease, transform 0.15s ease;
-}
-
-.carousel-dot.active {
-  background: var(--accent);
-  transform: scale(1.15);
+  background: rgba(30, 30, 40, 0.8);
+  border-color: rgba(255, 255, 255, 0.25);
 }

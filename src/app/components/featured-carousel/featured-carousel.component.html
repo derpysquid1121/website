@@ -1,19 +1,15 @@
 <div class="carousel" *ngIf="slides.length">
   <div class="carousel-viewport">
-    <article class="carousel-slide" *ngFor="let slide of slides; let i = index" [class.active]="i === activeIndex">
-      <h2 *ngIf="slide.subtitle" class="carousel-heading">
-        <span class="carousel-title">{{ slide.title }}</span>
-        <span class="carousel-subtitle">by {{ slide.subtitle }}</span>
-      </h2>
-      <h2 *ngIf="!slide.subtitle && slide.title" class="carousel-heading carousel-title-only">
-        {{ slide.title }}
-      </h2>
-      <p *ngIf="slide.body" class="carousel-note">{{ slide.body }}</p>
-      <div class="carousel-player">
+    <article
+      *ngFor="let slide of slides; let i = index"
+      [class]="getPositionClass(i)"
+      (click)="onSlideClick(i)"
+    >
+      <div class="slide-inner">
         <app-spotify-embed
           [kind]="slide.kind"
           [spotifyId]="slide.spotifyId"
-          [height]="embedHeight(slide)"
+          [height]="embedHeight()"
           [title]="slide.title"
         ></app-spotify-embed>
       </div>
@@ -21,19 +17,7 @@
   </div>
 
   <div class="carousel-controls" *ngIf="slides.length > 1">
-    <button type="button" class="carousel-btn" (click)="prev()" aria-label="Previous slide">←</button>
-    <div class="carousel-dots" role="tablist" aria-label="Carousel slides">
-      <button
-        *ngFor="let slide of slides; let i = index"
-        type="button"
-        class="carousel-dot"
-        [class.active]="i === activeIndex"
-        [attr.aria-label]="'Go to ' + slide.title"
-        [attr.aria-selected]="i === activeIndex"
-        role="tab"
-        (click)="goTo(i)"
-      ></button>
-    </div>
-    <button type="button" class="carousel-btn" (click)="next()" aria-label="Next slide">→</button>
+    <button type="button" class="carousel-btn carousel-btn--prev" (click)="prev()" aria-label="Previous slide">←</button>
+    <button type="button" class="carousel-btn carousel-btn--next" (click)="next()" aria-label="Next slide">→</button>
   </div>
 </div>
