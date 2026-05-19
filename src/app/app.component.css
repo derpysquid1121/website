@@ -10,3 +10,13 @@ main {
   flex: 1;
   padding: 0.5rem 0 2rem;
 }
+
+.hidden {
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: -1;
+}

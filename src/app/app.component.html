@@ -1,6 +1,9 @@
 <div class="layout">
   <app-site-header></app-site-header>
   <main>
+    <div [class.hidden]="!isBlogRoute">
+      <app-blog></app-blog>
+    </div>
     <router-outlet></router-outlet>
   </main>
   <app-site-footer></app-site-footer>

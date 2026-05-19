@@ -1,5 +1,5 @@
 :root {
-  --bg: #0c0c0f;
+  --bg: #000;
   --surface: #14141a;
   --text: #f4f4f5;
   --muted: #a1a1aa;
@@ -30,27 +30,31 @@ body {
   line-height: 1.5;
 }
 
-body::before,
-body::after {
+
+body::before {
   content: '';
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 1;
-}
-
-body::before {
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 3px,
-    rgba(0, 0, 0, 0.1) 3px,
-    rgba(0, 0, 0, 0.1) 4px
+  background: linear-gradient(
+    125deg,
+    #ff8ec8,
+    #c98bff,
+    #7ec8ff,
+    #5dffa8,
+    #ffe08a,
+    #ff8ec8
   );
+  background-size: 400% 400%;
+  opacity: 0.10;
+  animation: iridescent-bg 16s ease-in-out infinite;
 }
 
-body::after {
-  background: radial-gradient(ellipse at 50% 38%, rgba(30, 215, 96, 0.06), transparent 55%);
+@keyframes iridescent-bg {
+  0%, 100% { background-position: 0% 50%;   }
+  33%       { background-position: 100% 0%;  }
+  66%       { background-position: 50% 100%; }
 }
 
 app-root {

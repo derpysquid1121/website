@@ -1,12 +1,15 @@
+import { Component } from '@angular/core';
 import { Routes } from '@angular/router';
 import { AboutComponent } from './pages/about/about.component';
-import { BlogComponent } from './pages/blog/blog.component';
 import { siteConfig } from './site.config';
+
+@Component({ selector: 'ng-null', standalone: true, template: '' })
+class NullRouteComponent {}
 
 export const routes: Routes = [
   {
     path: '',
-    component: BlogComponent,
+    component: NullRouteComponent,
     title: 'Music',
     data: { tagline: siteConfig.tagline },
   },
