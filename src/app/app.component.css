@@ -1,4 +1,10 @@
+.app-shell {
+  position: relative;
+  z-index: 2;
+}
+
 .layout {
+  position: relative;
   width: min(960px, 100% - 2rem);
   margin: 0 auto;
   min-height: 100vh;

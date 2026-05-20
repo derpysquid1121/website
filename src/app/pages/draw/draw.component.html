@@ -1,0 +1,27 @@
+<section class="draw-page">
+  <div class="draw-toolbar entry">
+    <p class="draw-hint">Draw anywhere on the page. Your lines stay visible across the whole site.</p>
+
+    <div class="draw-actions">
+      <div class="draw-tools" role="group" aria-label="Drawing tools">
+        <button
+          type="button"
+          class="draw-tool"
+          [class.active]="(tool$ | async) === 'pen'"
+          (click)="setTool('pen')"
+        >
+          Pen
+        </button>
+        <button
+          type="button"
+          class="draw-tool"
+          [class.active]="(tool$ | async) === 'eraser'"
+          (click)="setTool('eraser')"
+        >
+          Eraser
+        </button>
+      </div>
+      <button type="button" class="draw-clear" (click)="clear()">Clear drawing</button>
+    </div>
+  </div>
+</section>

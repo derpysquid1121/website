@@ -1,0 +1,73 @@
+.draw-page {
+  position: relative;
+  z-index: 1;
+}
+
+.draw-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.draw-hint {
+  margin: 0;
+  max-width: 42ch;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.draw-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.draw-tools {
+  display: flex;
+  gap: 0.35rem;
+  padding: 0.2rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.draw-tool {
+  padding: 0.45rem 0.85rem;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.draw-tool:hover {
+  color: var(--text);
+}
+
+.draw-tool.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text);
+}
+
+.draw-clear {
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.draw-clear:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}

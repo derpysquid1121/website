@@ -46,8 +46,8 @@ body::before {
     #ffe08a,
     #ff8ec8
   );
-  background-size: 400% 400%;
-  opacity: 0.10;
+  background-size: 200% 200%;
+  opacity: 0.20;
   animation: iridescent-bg 16s ease-in-out infinite;
 }
 
@@ -61,6 +61,24 @@ app-root {
   position: relative;
   z-index: 2;
   display: block;
+}
+
+body.drawing-mode {
+  cursor: crosshair;
+}
+
+body.drawing-mode a,
+body.drawing-mode button {
+  cursor: pointer;
+}
+
+body.drawing-mode.eraser-mode {
+  cursor: cell;
+}
+
+body.drawing-mode.eraser-mode a,
+body.drawing-mode.eraser-mode button {
+  cursor: pointer;
 }
 
 h1,

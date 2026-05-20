@@ -17,6 +17,7 @@ export class SiteHeaderComponent {
   readonly navLinks = [
     { label: 'Blog', path: '/' },
     { label: 'About', path: '/about' },
+    { label: 'Draw', path: '/draw' },
   ];
 
   readonly tagline$ = this.router.events.pipe(
