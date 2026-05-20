@@ -8,6 +8,16 @@
   --surface-raised: #181820;
   --shadow-card: 0 18px 45px rgba(0, 0, 0, 0.34), 0 4px 14px rgba(0, 0, 0, 0.24);
   --shadow-card-hover: 0 24px 60px rgba(0, 0, 0, 0.42), 0 8px 20px rgba(0, 0, 0, 0.28);
+  --glass-separator-height: 5px;
+  --glass-separator-bg: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.04) 0%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  --glass-separator-surface: rgba(12, 12, 18, 0.14);
+  --glass-separator-border: rgba(255, 255, 255, 0.04);
+  --glass-separator-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  --glass-separator-inset: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 *,
@@ -80,12 +90,43 @@ body.drawing-mode {
   cursor: crosshair;
 }
 
-body.drawing-mode app-root,
-body.drawing-mode .app-shell,
-body.drawing-mode .layout {
-  min-height: 0;
+body.drawing-mode app-root {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
   max-height: 100dvh;
   overflow: hidden;
+}
+
+body.drawing-mode .app-shell {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow: hidden;
+}
+
+body.drawing-mode .layout {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+  max-height: 100dvh;
+  overflow: hidden;
+}
+
+body.drawing-mode main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body.drawing-mode app-site-header,
+body.drawing-mode app-site-footer {
+  flex-shrink: 0;
 }
 
 body.drawing-mode a,

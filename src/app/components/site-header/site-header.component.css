@@ -1,11 +1,30 @@
 .site-header {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 1rem 1.5rem;
-  padding: 1.25rem 0 1.5rem;
-  border-bottom: 1px solid var(--border);
+  padding: 1.25rem 0 1.35rem;
+  margin-bottom: 0.15rem;
+}
+
+.site-header::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--glass-separator-height);
+  border: 1px solid var(--glass-separator-border);
+  border-radius: 999px;
+  background:
+    var(--glass-separator-bg),
+    var(--glass-separator-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--glass-separator-shadow), var(--glass-separator-inset);
+  pointer-events: none;
 }
 
 .brand {

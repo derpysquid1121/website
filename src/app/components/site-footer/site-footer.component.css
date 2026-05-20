@@ -1,9 +1,27 @@
 .site-footer {
+  position: relative;
   margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--border);
+  padding-top: 1.35rem;
   color: var(--muted);
   font-size: 0.9rem;
+}
+
+.site-footer::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--glass-separator-height);
+  border: 1px solid var(--glass-separator-border);
+  border-radius: 999px;
+  background:
+    var(--glass-separator-bg),
+    var(--glass-separator-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: var(--glass-separator-shadow), var(--glass-separator-inset);
+  pointer-events: none;
 }
 
 .site-footer a {
