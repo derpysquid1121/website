@@ -33,6 +33,7 @@ export class DrawingOverlayComponent implements AfterViewInit, OnDestroy {
   private gradientPhase = 0;
   private rafId = 0;
   private drawing = false;
+  private scrollY = 0;
   private drawingEnabledSub?: Subscription;
   private toolSub?: Subscription;
   private strokesSub?: Subscription;
@@ -43,6 +44,8 @@ export class DrawingOverlayComponent implements AfterViewInit, OnDestroy {
     this.handlePointerMove(event);
   private readonly onDocumentPointerUp = (event: PointerEvent) =>
     this.handlePointerUp(event);
+  private readonly onTouchStart = (event: TouchEvent) => this.handleTouchStart(event);
+  private readonly onTouchMove = (event: TouchEvent) => this.handleTouchMove(event);
 
   constructor(private readonly drawingService: DrawingService) {}
 
@@ -85,11 +88,18 @@ export class DrawingOverlayComponent implements AfterViewInit, OnDestroy {
   }
 
   private enableDocumentDrawing(): void {
+    this.scrollY = window.scrollY;
+
+    document.documentElement.classList.add('drawing-mode');
+    document.body.classList.add('drawing-mode');
+    document.body.style.top = `-${this.scrollY}px`;
+
     document.addEventListener('pointerdown', this.onDocumentPointerDown);
     document.addEventListener('pointermove', this.onDocumentPointerMove);
     document.addEventListener('pointerup', this.onDocumentPointerUp);
     document.addEventListener('pointercancel', this.onDocumentPointerUp);
-    document.body.classList.add('drawing-mode');
+    document.addEventListener('touchstart', this.onTouchStart, { passive: false });
+    document.addEventListener('touchmove', this.onTouchMove, { passive: false });
   }
 
   private disableDocumentDrawing(): void {
@@ -97,8 +107,35 @@ export class DrawingOverlayComponent implements AfterViewInit, OnDestroy {
     document.removeEventListener('pointermove', this.onDocumentPointerMove);
     document.removeEventListener('pointerup', this.onDocumentPointerUp);
     document.removeEventListener('pointercancel', this.onDocumentPointerUp);
+    document.removeEventListener('touchstart', this.onTouchStart);
+    document.removeEventListener('touchmove', this.onTouchMove);
+
+    document.documentElement.classList.remove('drawing-mode');
     document.body.classList.remove('drawing-mode', 'eraser-mode');
+    document.body.style.top = '';
+    window.scrollTo(0, this.scrollY);
+
     this.drawing = false;
+  }
+
+  private handleTouchStart(event: TouchEvent): void {
+    if (!this.drawingService.drawingEnabled || this.isInteractiveTarget(event.target)) {
+      return;
+    }
+
+    if (event.cancelable) {
+      event.preventDefault();
+    }
+  }
+
+  private handleTouchMove(event: TouchEvent): void {
+    if (!this.drawingService.drawingEnabled || this.isInteractiveTarget(event.target)) {
+      return;
+    }
+
+    if (event.cancelable) {
+      event.preventDefault();
+    }
   }
 
   private handlePointerDown(event: PointerEvent): void {
